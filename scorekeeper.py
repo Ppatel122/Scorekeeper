@@ -25,15 +25,26 @@ class Scorekeeper(Tk):
         sys.exit(1)
 
     def Start(self):
-        self.player1.grid_forget()
-        self.player2.grid_forget()
-        self.player3.grid_forget()
-        self.player4.grid_forget()
+        p1 = self.p1entry.get()
+        p2 = self.p1entry.get()
+        p3 = self.p1entry.get()
+        p4 = self.p1entry.get()
+        gname = gnameentry.get()
 
-        self.instruct.place_forget()
-        self.contin.place_forget()
+        self.top.grid_forget()
+        self.players.grid_forget()
+        self.gamename.grid_forget()
+        self.bottom.grid_forget()
 
-        self.endbut = Button(self, text = "End Game", command = self.Results, bg = "red")
+        self.gametitle = Frame(self)
+        self.scoretitle = Frame(self)
+        self.scorebox = Frame(self)
+        self.scoreroundtitle = Frame(self)
+        self.scoreround = Frame(self)
+        self.scoreroundadd = Frame(self)
+        self.endbut = Frame(self)
+
+        self.endbutton = Button(self, text = "End Game", command = self.Results, bg = "red")
 
     def Players(self):
         self.start.grid_forget()
@@ -41,41 +52,48 @@ class Scorekeeper(Tk):
         self.Title.grid_forget()
         self.geometry("420x200")
 
-        self.player1 = Frame(self)
-        self.p1entry = Entry(self.player1, width=10)
-        self.p1label = Label(self.player1, text="Player 1", font = 15)
+        self.gamename = Frame(self)
+        self.gnameentry = Entry(self.gamename, width = 13)
+        self.gnamelabel = Label(self.gamename, text = "What Game are you playing?")
 
-        self.player2 = Frame(self)
-        self.p2entry = Entry(self.player2, width=10)
-        self.p2label = Label(self.player2, text="Player 2",font = 15)
+        self.players = Frame(self)
 
-        self.player3 = Frame(self)
-        self.p3entry = Entry(self.player3, width=10)
-        self.p3label = Label(self.player3, text="Player 3", font = 15)
+        self.p1entry = Entry(self.players, width=10)
+        self.p1label = Label(self.players, text="Player 1")
 
-        self.player4 = Frame(self)
-        self.p4entry = Entry(self.player4, width=10)
-        self.p4label = Label(self.player4, text="Player 4", font = 15)
+        self.p2entry = Entry(self.players, width=10)
+        self.p2label = Label(self.players, text="Player 2")
 
-        self.instruct = Label(self, text = "Enter your names", font = 20)
-        self.contin = Button(self, text = "Continue", command = self.Start, bg = "green")
+        self.p3entry = Entry(self.players, width=10)
+        self.p3label = Label(self.players, text="Player 3")
 
-        self.player1.grid(row = 0, column = 0, padx = 20, pady = 70)
-        self.player2.grid(row = 0, column = 1, padx = 20, pady = 70)
-        self.player3.grid(row = 0, column = 2, padx = 20, pady = 70)
-        self.player4.grid(row = 0, column = 3, padx = 20, pady = 70)
+        self.p4entry = Entry(self.players, width=10)
+        self.p4label = Label(self.players, text="Player 4")
+
+        self.top = Frame(self)
+        self.bottom = Frame(self,pady = 10)
+        self.instruct = Label(self.top, text = "Enter your names:", font = 20)
+        self.contin = Button(self.bottom, text = "Continue", command = self.Start, bg = "green")
+
+        self.top.grid(row = 0, column = 0)
+        self.players.grid(row = 1, column = 0)
+        self.gamename.grid(row = 2, column = 0)
+        self.bottom.grid(row = 3, column = 0)
 
         self.p1entry.grid(row = 1, column = 0)
         self.p1label.grid(row = 0, column = 0)
-        self.p2entry.grid(row = 1, column = 0)
-        self.p2label.grid(row = 0, column = 0)
-        self.p3entry.grid(row = 1, column = 0)
-        self.p3label.grid(row = 0, column = 0)
-        self.p4entry.grid(row = 1, column = 0)
-        self.p4label.grid(row = 0, column = 0)
+        self.p2entry.grid(row = 1, column = 1)
+        self.p2label.grid(row = 0, column = 1)
+        self.p3entry.grid(row = 1, column = 2)
+        self.p3label.grid(row = 0, column = 2)
+        self.p4entry.grid(row = 1, column = 3)
+        self.p4label.grid(row = 0, column = 3)
 
-        self.instruct.place(x=144,y=16)
-        self.contin.place(x=184,y=150)
+        self.gnameentry.grid(row = 0, column = 1)
+        self.gnamelabel.grid(row = 0, column = 0)
+
+        self.instruct.grid(row = 0, column = 0)
+        self.contin.grid(row = 0, column = 0)
 
     def Results(self):
         pass
