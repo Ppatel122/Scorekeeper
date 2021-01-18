@@ -9,7 +9,8 @@ class Scorekeeper(Tk):
     def Setup(self,loop):
 
         if loop == "y":
-            pass
+            self.win.grid_forget()
+            self.finish.grid_forget()
 
         self.title("Scorekeeper")
         self.geometry("200x200")
@@ -81,18 +82,18 @@ class Scorekeeper(Tk):
         self.contin.grid(row = 0, column = 0)
 
     def Start(self):
-        p1 = self.p1entry.get()
-        if len(p1) == 0:
-            p1 = "Player 1"
-        p2 = self.p2entry.get()
-        if len(p2) == 0:
-            p2 = "Player 2"
-        p3 = self.p3entry.get()
-        if len(p3) == 0:
-            p3 = "Player 3"
-        p4 = self.p4entry.get()
-        if len(p4) == 0:
-            p4 = "Player 4"
+        self.p1 = self.p1entry.get()
+        if len(self.p1) == 0:
+            self.p1 = "Player 1"
+        self.p2 = self.p2entry.get()
+        if len(self.p2) == 0:
+            self.p2 = "Player 2"
+        self.p3 = self.p3entry.get()
+        if len(self.p3) == 0:
+            self.p3 = "Player 3"
+        self.p4 = self.p4entry.get()
+        if len(self.p4) == 0:
+            self.p4 = "Player 4"
         gname = self.gnameentry.get()
         if len(gname) == 0:
             gname = "Game"
@@ -101,7 +102,7 @@ class Scorekeeper(Tk):
         self.players.grid_forget()
         self.gamename.grid_forget()
         self.bottom.grid_forget()
-        self.geometry("420x400")
+        self.geometry("420x300")
 
         self.gametitle = Frame(self)
         self.scoreroundtitle = Frame(self)
@@ -118,13 +119,13 @@ class Scorekeeper(Tk):
         self.scoreroundlabel.grid(row = 0, column = 0)
 
         self.p1entry = Entry(self.scoreround, width=10)
-        self.p1label = Label(self.scoreround, text=p1,padx = 20)
+        self.p1label = Label(self.scoreround, text=self.p1,padx = 20)
         self.p2entry = Entry(self.scoreround, width=10)
-        self.p2label = Label(self.scoreround, text=p2, padx = 20)
+        self.p2label = Label(self.scoreround, text=self.p2, padx = 20)
         self.p3entry = Entry(self.scoreround, width=10)
-        self.p3label = Label(self.scoreround, text=p3, padx = 20)
+        self.p3label = Label(self.scoreround, text=self.p3, padx = 20)
         self.p4entry = Entry(self.scoreround, width=10)
-        self.p4label = Label(self.scoreround, text=p4, padx = 20)
+        self.p4label = Label(self.scoreround, text=self.p4, padx = 20)
         self.p1entry.grid(row = 1, column = 0)
         self.p1label.grid(row = 0, column = 0)
         self.p2entry.grid(row = 1, column = 1)
@@ -135,10 +136,35 @@ class Scorekeeper(Tk):
         self.p4label.grid(row = 0, column = 3)
 
         self.roundaddbut = Button(self.scoreroundadd, text = "Add Scores", command = self.AddRound, bg = "green")
-        self.roundaddbut.grid(row = 0, column = 0)
+        self.roundaddbut.grid(row = 0, column = 0,pady = 15)
+
+        self.scoretotal = Label(self.scoretitle, font = 12, text = "Total Score")
+        self.scoretotal.grid(row = 0, column = 0)
+
+        self.p1scores = 0
+        self.p2scores = 0
+        self.p3scores = 0
+        self.p4scores = 0
+
+        self.p1score = Label(self.scorebox, text=self.p1scores,padx = 20)
+        self.p1label = Label(self.scorebox, text=self.p1,padx = 20)
+        self.p2score = Label(self.scorebox, text=self.p2scores,padx = 20)
+        self.p2label = Label(self.scorebox, text=self.p2, padx = 20)
+        self.p3score = Label(self.scorebox, text=self.p3scores,padx = 20)
+        self.p3label = Label(self.scorebox, text=self.p3, padx = 20)
+        self.p4score = Label(self.scorebox, text=self.p4scores,padx = 20)
+        self.p4label = Label(self.scorebox, text=self.p4, padx = 20)
+        self.p1score.grid(row = 1, column = 0)
+        self.p1label.grid(row = 0, column = 0)
+        self.p2score.grid(row = 1, column = 1)
+        self.p2label.grid(row = 0, column = 1)
+        self.p3score.grid(row = 1, column = 2)
+        self.p3label.grid(row = 0, column = 2)
+        self.p4score.grid(row = 1, column = 3)
+        self.p4label.grid(row = 0, column = 3)
 
         self.endbutton = Button(self.endbut, text = "End Game", command = self.Results, bg = "red")
-        self.endbutton.grid(row = 0, column = 0, pady = 5)
+        self.endbutton.grid(row = 0, column = 0, pady = 15)
 
         self.gametitle.grid(row = 0, column = 0)
         self.scoreroundtitle.grid(row = 1, column = 0)
@@ -149,7 +175,49 @@ class Scorekeeper(Tk):
         self.endbut.grid(row = 6, column = 0)
 
     def Results(self):
-        pass
+        maxi = max(self.p1scores,self.p2scores,self.p3scores,self.p4scores)
+        winners = []
+        if maxi == self.p1scores:
+            winners.append(self.p1)
+        if maxi == self.p2scores:
+            winners.append(self.p2)
+        if maxi == self.p3scores:
+            winners.append(self.p3)
+        if maxi == self.p4scores:
+            winners.append(self.p4)
+
+        self.gametitle.grid_forget()
+        self.scoreroundtitle.grid_forget()
+        self.scoreround.grid_forget()
+        self.scoreroundadd.grid_forget()
+        self.scoretitle.grid_forget()
+        self.scorebox.grid_forget()
+        self.endbut.grid_forget()
+        self.geometry("400x100")
+
+        i = 0
+        line = "Winners are "
+        while (True):
+            line += winners[i]
+            i += 1
+            if (i == len(winners)):
+                break
+            elif(i == len(winners) - 1):
+                line += " and "
+            else:
+                line += ", "
+
+        self.win = Frame(self)
+        self.finish = Frame(self)
+
+        self.winnames = Label(self.win, text = line, font = 12)
+        self.winnames.grid(row = 0, column = 0)
+
+        self.finishbut = Button(self.finish, text = "Finish", command = lambda: self.Setup("y"), bg = "red")
+        self.finishbut.grid(row = 0, column = 0)
+
+        self.win.grid(row = 0, column = 0)
+        self.finish.grid(row = 1, column = 0)
 
     def AddRound(self):
         pass
