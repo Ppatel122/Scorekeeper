@@ -210,7 +210,7 @@ class Scorekeeper(Tk):
         self.win = Frame(self)
         self.finish = Frame(self)
 
-        self.winnames = Label(self.win, text = line, font = 12)
+        self.winnames = Label(self.win, text = line)
         self.winnames.grid(row = 0, column = 0)
 
         self.finishbut = Button(self.finish, text = "Finish", command = lambda: self.Setup("y"), bg = "red")
@@ -220,7 +220,27 @@ class Scorekeeper(Tk):
         self.finish.grid(row = 1, column = 0)
 
     def AddRound(self):
-        pass
+        self.p1scores += int(self.p1entry.get())
+        self.p2scores += int(self.p2entry.get())
+        self.p3scores += int(self.p3entry.get())
+        self.p4scores += int(self.p4entry.get())
+
+        self.p1score = Label(self.scorebox, text=self.p1scores,padx = 20)
+        self.p1label = Label(self.scorebox, text=self.p1,padx = 20)
+        self.p2score = Label(self.scorebox, text=self.p2scores,padx = 20)
+        self.p2label = Label(self.scorebox, text=self.p2, padx = 20)
+        self.p3score = Label(self.scorebox, text=self.p3scores,padx = 20)
+        self.p3label = Label(self.scorebox, text=self.p3, padx = 20)
+        self.p4score = Label(self.scorebox, text=self.p4scores,padx = 20)
+        self.p4label = Label(self.scorebox, text=self.p4, padx = 20)
+        self.p1score.grid(row = 1, column = 0)
+        self.p1label.grid(row = 0, column = 0)
+        self.p2score.grid(row = 1, column = 1)
+        self.p2label.grid(row = 0, column = 1)
+        self.p3score.grid(row = 1, column = 2)
+        self.p3label.grid(row = 0, column = 2)
+        self.p4score.grid(row = 1, column = 3)
+        self.p4label.grid(row = 0, column = 3)
 
 
 if __name__ == "__main__":
