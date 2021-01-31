@@ -7,23 +7,24 @@ class Scorekeeper(Tk):
         self.Setup("n")
 
     def Setup(self,loop):
-
+        # If we are looping from game end screen, we forget previous widgets
         if loop == "y":
             self.win.grid_forget()
             self.finish.grid_forget()
 
+        # Creating the widgets and placing them in the GUI
         self.title("Scorekeeper")
         self.geometry("200x200")
-
         self.Title = Label(self, text = "Scorekeeper", font = 25)
         self.start = Button(self,text = "New Game", height = 2, width = 10,
                           command = self.Players, bg = "green")
         self.exit = Button(self,text = "Exit",height = 1, width = 7,command =
                          self.EndGame, bg = "red")
-
         self.Title.grid(row = 0, column = 0)
         self.start.grid(row = 1, column = 0)
         self.exit.grid(row = 2, column = 0)
+
+        # Configuring the grid
         self.grid_rowconfigure(0, weight=1)
         self.grid_rowconfigure(1, weight=1)
         self.grid_rowconfigure(2, weight=1)
@@ -33,33 +34,33 @@ class Scorekeeper(Tk):
         sys.exit(1)
 
     def Players(self):
+        # Forgetting the previous widgets
         self.start.grid_forget()
         self.exit.grid_forget()
         self.Title.grid_forget()
         self.geometry("420x200")
 
+        # Creating the new widgets and placing them on the GUI
         self.gamename = Frame(self)
         self.gnameentry = Entry(self.gamename, width = 13)
-        self.gnamelabel = Label(self.gamename, text = "What Game are you playing?", font = 15)
-
+        self.gnamelabel = Label(self.gamename, text = "What Game are you
+                                playing?", font = 15)
         self.players = Frame(self)
 
         self.p1entry = Entry(self.players, width=10)
         self.p1label = Label(self.players, text="Player 1",padx = 20)
-
         self.p2entry = Entry(self.players, width=10)
         self.p2label = Label(self.players, text="Player 2", padx = 20)
-
         self.p3entry = Entry(self.players, width=10)
         self.p3label = Label(self.players, text="Player 3", padx = 20)
-
         self.p4entry = Entry(self.players, width=10)
         self.p4label = Label(self.players, text="Player 4", padx = 20)
 
         self.top = Frame(self)
         self.bottom = Frame(self,pady = 10)
         self.instruct = Label(self.top, text = "Enter your names:", font = 15)
-        self.contin = Button(self.bottom, text = "Continue", command = self.Start, bg = "green")
+        self.contin = Button(self.bottom, text = "Continue",
+                             command = self.Start, bg = "green")
 
         self.top.grid(row = 0, column = 0)
         self.players.grid(row = 1, column = 0)
@@ -82,6 +83,7 @@ class Scorekeeper(Tk):
         self.contin.grid(row = 0, column = 0)
 
     def Start(self):
+        # Getting the names before forgetting the widgets
         self.p1 = self.p1entry.get()
         if len(self.p1) == 0:
             self.p1 = "Player 1"
@@ -98,12 +100,14 @@ class Scorekeeper(Tk):
         if len(gname) == 0:
             gname = "Game"
 
+        # Forgetting the previous widgets
         self.top.grid_forget()
         self.players.grid_forget()
         self.gamename.grid_forget()
         self.bottom.grid_forget()
         self.geometry("420x300")
 
+        # Creating the new widgets and placing them on the GUI
         self.gametitle = Frame(self)
         self.scoreroundtitle = Frame(self)
         self.scoreround = Frame(self)
@@ -114,8 +118,8 @@ class Scorekeeper(Tk):
 
         self.gametitlelabel = Label(self.gametitle,font = 14, text = gname)
         self.gametitlelabel.grid(row = 0, column = 0)
-
-        self.scoreroundlabel = Label(self.scoreroundtitle, font = 12, text = "Round Score")
+        self.scoreroundlabel = Label(self.scoreroundtitle, font = 12,
+                                     text = "Round Score")
         self.scoreroundlabel.grid(row = 0, column = 0)
 
         self.p1entry = Entry(self.scoreround, width=10)
@@ -135,12 +139,15 @@ class Scorekeeper(Tk):
         self.p4entry.grid(row = 1, column = 3)
         self.p4label.grid(row = 0, column = 3)
 
-        self.roundaddbut = Button(self.scoreroundadd, text = "Add Scores", command = self.AddRound, bg = "green")
+        self.roundaddbut = Button(self.scoreroundadd, text = "Add Scores",
+                                  command = self.AddRound, bg = "green")
         self.roundaddbut.grid(row = 0, column = 0,pady = 15)
 
-        self.scoretotal = Label(self.scoretitle, font = 12, text = "Total Score")
+        self.scoretotal = Label(self.scoretitle, font = 12,
+                                text = "Total Score")
         self.scoretotal.grid(row = 0, column = 0)
 
+        # Creating the score variables
         self.p1scores = 0
         self.p2scores = 0
         self.p3scores = 0
@@ -163,7 +170,8 @@ class Scorekeeper(Tk):
         self.p4score.grid(row = 1, column = 3)
         self.p4label.grid(row = 0, column = 3)
 
-        self.endbutton = Button(self.endbut, text = "End Game", command = self.Results, bg = "red")
+        self.endbutton = Button(self.endbut, text = "End Game",
+                                command = self.Results, bg = "red")
         self.endbutton.grid(row = 0, column = 0, pady = 15)
 
         self.gametitle.grid(row = 0, column = 0)
@@ -175,6 +183,7 @@ class Scorekeeper(Tk):
         self.endbut.grid(row = 6, column = 0)
 
     def Results(self):
+        # Figuring out the winners
         maxi = max(self.p1scores,self.p2scores,self.p3scores,self.p4scores)
         winners = []
         if maxi == self.p1scores:
@@ -186,6 +195,7 @@ class Scorekeeper(Tk):
         if maxi == self.p4scores:
             winners.append(self.p4)
 
+        # Forgetting the previous widgets
         self.gametitle.grid_forget()
         self.scoreroundtitle.grid_forget()
         self.scoreround.grid_forget()
@@ -195,6 +205,7 @@ class Scorekeeper(Tk):
         self.endbut.grid_forget()
         self.geometry("400x100")
 
+        # Constructing the results statement
         i = 0
         line = "Winners are "
         while (True):
@@ -207,24 +218,28 @@ class Scorekeeper(Tk):
             else:
                 line += ", "
 
+        # Setting up the final widgets and placing them
         self.win = Frame(self)
         self.finish = Frame(self)
 
         self.winnames = Label(self.win, text = line)
         self.winnames.grid(row = 0, column = 0)
 
-        self.finishbut = Button(self.finish, text = "Finish", command = lambda: self.Setup("y"), bg = "red")
+        self.finishbut = Button(self.finish, text = "Finish",
+                                command = lambda: self.Setup("y"), bg = "red")
         self.finishbut.grid(row = 0, column = 0)
 
         self.win.grid(row = 0, column = 0)
         self.finish.grid(row = 1, column = 0)
 
     def AddRound(self):
+        # Adding the scores from the current round to the total scores
         self.p1scores += int(self.p1entry.get())
         self.p2scores += int(self.p2entry.get())
         self.p3scores += int(self.p3entry.get())
         self.p4scores += int(self.p4entry.get())
 
+        # Updating the Stats on the GUI
         self.p1score = Label(self.scorebox, text=self.p1scores,padx = 20)
         self.p1label = Label(self.scorebox, text=self.p1,padx = 20)
         self.p2score = Label(self.scorebox, text=self.p2scores,padx = 20)
@@ -244,5 +259,6 @@ class Scorekeeper(Tk):
 
 
 if __name__ == "__main__":
+    # Creating the GUI
     score = Scorekeeper()
     score.mainloop()
