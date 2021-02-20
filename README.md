@@ -1,3 +1,3 @@
 # Scorekeeper
 
-Work in Progress
+Creating a demo of app 
