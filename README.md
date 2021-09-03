@@ -1,3 +1,3 @@
 # Scorekeeper
 
-Creating a demo of app 
+Simple scorekeeping app created using tkinter module in python
