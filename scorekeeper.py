@@ -43,8 +43,7 @@ class Scorekeeper(Tk):
         # Creating the new widgets and placing them on the GUI
         self.gamename = Frame(self)
         self.gnameentry = Entry(self.gamename, width = 13)
-        self.gnamelabel = Label(self.gamename, text = "What Game are you
-                                playing?", font = 15)
+        self.gnamelabel = Label(self.gamename, text = "What Game are you playing?", font = 15)
         self.players = Frame(self)
 
         self.p1entry = Entry(self.players, width=10)
